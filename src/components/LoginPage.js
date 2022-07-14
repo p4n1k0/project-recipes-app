@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../contex/myContext';
 
 function LoginPage() {
   const setState = useContext(MyContext); // recebe o value provido pelo Contexto
+  const history = useHistory();
   const [login, setLogin] = useState({
     email: '',
     password: '',
@@ -20,6 +22,7 @@ function LoginPage() {
     localStorage.setItem('user', JSON.stringify({ email: login.email }));
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
+    history.push('/foods');
   }
 
   function isButtonDisabled() {
