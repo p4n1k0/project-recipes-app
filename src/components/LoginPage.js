@@ -16,6 +16,12 @@ function LoginPage() {
     });
   }
 
+  function onClickButton() {
+    localStorage.setItem('user', JSON.stringify({ email: login.email }));
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+  }
+
   function isButtonDisabled() {
     const SIX = 6;
     const test = /^(\w|\.)+@[a-z]+\.com$/
@@ -50,6 +56,7 @@ function LoginPage() {
             type="button"
             data-testid="login-submit-btn"
             disabled={ isButtonDisabled() }
+            onClick={ onClickButton }
           >
             Entrar
           </button>
