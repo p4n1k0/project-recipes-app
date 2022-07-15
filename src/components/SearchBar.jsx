@@ -9,6 +9,18 @@ export default function SearchBar() {
   }
 
   const { key } = searchData; // , search
+  // function getRecipes() {
+  //   if (search === 'ingredient') {
+  //     return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${key}`)
+  //       .then((response) => response.json());
+  //   } if (search === 'name') {
+  //     return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?n=${key}`);
+  //   }
+  //   return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?f=${key}`);
+  // }
+  // function handleClick(){
+  //   getRecipes
+  // }
 
   return (
     <div>
