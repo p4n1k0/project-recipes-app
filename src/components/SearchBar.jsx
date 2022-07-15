@@ -8,7 +8,13 @@ export default function SearchBar() {
     });
   }
 
-  const { key } = searchData; // , search
+  const { key, search } = searchData; // , search
+  function getRecipes() {
+    if (search === ingredient) {
+      fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+        .then((response) => response.json());
+    }
+  }
 
   return (
     <div>

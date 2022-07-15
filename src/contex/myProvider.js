@@ -6,6 +6,10 @@ function Provider({ children }) {
   const [state, setState] = useState({
     btnDisabled: true,
   });
+  useEffect(() => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+      .then((response) => response.json());
+  }, []);
 
   return (
     <MyContext.Provider value={ { ...state, setState } }>
