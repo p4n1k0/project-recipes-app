@@ -34,38 +34,37 @@ function LoginPage() {
 
   return (
     <main>
-      { console.log('login', login)}
+      {/* { console.log('login', login)} */}
       <form>
-        <label htmlFor="login">
-          <input
-            autoComplete="current-email"
-            name="email"
-            data-testid="email-input"
-            id="login"
-            type="email"
-            value={ login.email }
-            placeholder="Digite seu email"
-            onChange={ (e) => handleChange(e) }
-          />
-          <input
-            autoComplete="current-password"
-            name="password"
-            data-testid="password-input"
-            id="password"
-            value={ login.password }
-            type="password"
-            placeholder="Digite sua senha"
-            onChange={ (e) => handleChange(e) }
-          />
-          <button
-            type="button"
-            data-testid="login-submit-btn"
-            disabled={ isButtonDisabled() }
-            onClick={ onClickButton }
-          >
-            Entrar
-          </button>
-        </label>
+        <h2>Login</h2>
+        <input
+          autoComplete="current-email"
+          name="email"
+          data-testid="email-input"
+          id="login"
+          type="email"
+          value={ login.email }
+          placeholder="Digite seu email"
+          onChange={ handleChange }
+        />
+        <input
+          autoComplete="current-password"
+          name="password"
+          data-testid="password-input"
+          id="password"
+          value={ login.password }
+          type="password"
+          placeholder="Digite sua senha"
+          onChange={ handleChange }
+        />
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ isButtonDisabled() }
+          onClick={ onClickButton }
+        >
+          Entrar
+        </button>
       </form>
     </main>
   );

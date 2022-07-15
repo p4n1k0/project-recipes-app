@@ -16,11 +16,16 @@ describe('Testa a tela de Login', () => {
     expect(buttonEnter).toBeInTheDocument();
   });
 
-  test('testa se o button esta habilitado', () => {
+  test('testa se o button esta habilitado', async () => {
     renderWithRouter(<App />);
-    const email = 'main-group-18@gmail.com';
-    userEvent.type(screen.getByTestId('email-input'), email);
-    userEvent.type(screen.getByTestId('password-input'), '1234567');
-    userEvent.click(screen.getByTestId('login-submit-btn'));
+    const email = 'tryber@teste.com';
+    const eInput = screen.getByTestId('email-input')
+    userEvent.type(eInput, email);
+    const pInput = screen.getByTestId('password-input')
+    userEvent.type(pInput, '1234567');
+    const lBtn = screen.getByTestId('login-submit-btn')
+    userEvent.click(lBtn);
+    const title = await screen.findByTestId('page-title')
+    expect(title).toHaveTextContent('Food')
   });
 });
