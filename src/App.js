@@ -1,20 +1,33 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import FoodRecipes from './pages/FoodRecipes';
+import LoginPage from './pages/Login';
+import Provider from './contex/myProvider';
+import DrinksRecipes from './pages/DrinksRecipes';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+    <Provider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ LoginPage } />
+          <Route path="/foods" component={ FoodRecipes } />
+          <Route path="/drinks" component={ DrinksRecipes } />
+          <Route path="/foods/:id" component={ FoodRecipes } />
+          <Route path="/drinks/:id" component={ DrinksRecipes } />
+          <Route path="/foods/:id/in-progress" />
+          <Route path="/drinks/:id/in-progress" />
+          <Route path="/profile" component={ Profile } />
+          <Route path="/done-recipes" component={ DoneRecipes } />
+          <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
