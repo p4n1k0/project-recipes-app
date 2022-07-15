@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react'; // useContext,
 import { useHistory } from 'react-router-dom';
-import MyContext from '../contex/myContext';
+// import MyContext from '../contex/myContext';
 
 function LoginPage() {
-  const setState = useContext(MyContext); // recebe o value provido pelo Contexto
+  // const setState = useContext(MyContext); // recebe o value provido pelo Contexto
   const history = useHistory();
   const [login, setLogin] = useState({
     email: '',
@@ -38,6 +38,7 @@ function LoginPage() {
       <form>
         <label htmlFor="login">
           <input
+            autoComplete="current-email"
             name="email"
             data-testid="email-input"
             id="login"
@@ -47,9 +48,10 @@ function LoginPage() {
             onChange={ (e) => handleChange(e) }
           />
           <input
+            autoComplete="current-password"
             name="password"
             data-testid="password-input"
-            id="login"
+            id="password"
             value={ login.password }
             type="password"
             placeholder="Digite sua senha"
