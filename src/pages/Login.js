@@ -13,8 +13,6 @@ function LoginPage() {
   function handleChange({ target }) {
     setLogin({
       ...login, [target.name]: target.value,
-    //   email: target.value,
-    //   password: target.value,
     });
   }
 
