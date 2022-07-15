@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header() {
   const MINUS_ONE = -1;
@@ -34,16 +35,7 @@ function Header() {
     setShowMenu(!showMenu);
   }
 
-  const [searchData, setSearchData] = useState({ key: '', search: '' });
-  function handleChange({ target: { name, value } }) {
-    setSearchData({
-      ...searchData, [name]: value,
-    });
-  }
-
   // const [search, setSearch] = useState('')
-
-  const { key } = searchData; // , search
 
   return (
     <header>
@@ -64,49 +56,7 @@ function Header() {
       </div>
       {
         (showMenu)
-        && (
-          <div>
-            <input
-              onChange={ handleChange }
-              name="key"
-              value={ key }
-              type="text"
-              data-testid="search-input"
-            />
-            <label htmlFor="ingredient">
-              Ingedientes
-              <input
-                id="ingredient"
-                onClick={ handleChange }
-                name="search"
-                type="radio"
-                data-testid="ingredient-search-radio"
-                value="ingredient"
-              />
-            </label>
-            <label htmlFor="name">
-              Nome
-              <input
-                id="name"
-                name="search"
-                type="radio"
-                data-testid="name-search-radio"
-                value="name"
-              />
-            </label>
-            <label htmlFor="first-letter">
-              Primeira letra
-              <input
-                id="first-letter"
-                name="search"
-                type="radio"
-                data-testid="first-letter-search-radio"
-                value="first-letter"
-              />
-            </label>
-            <button type="button" data-testid="exec-search-btn">Pesquisar</button>
-          </div>
-        )
+        && (<SearchBar />)
       }
     </header>
   );
