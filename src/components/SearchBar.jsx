@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import context from '../contex/myContext';
 import { useHistory } from 'react-router-dom';
+import context from '../contex/myContext';
 
 export default function SearchBar() {
   const [searchData, setSearchData] = useState({ key: '', search: '' });
@@ -11,80 +11,75 @@ export default function SearchBar() {
   }
 
   const { key, search } = searchData; // , search
-  const data = useContext(context)
+  const { data, setData } = useContext(context);
+  const history = useHistory();
+
   function getFoodRecipes() {
-    let result = null
+    let result = null;
     if (search === 'ingredient') {
-      result = fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${key}`)
-
+      result = fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${key}`);
     } else if (search === 'name') {
-      result = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${key}`)
-
+      result = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${key}`);
     } else if (search === 'first-letter') {
       if (key.length === 1) {
-        result = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${key}`)
-
+        result = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${key}`);
       } else {
-        global.alert('Your search must have only 1 (one) character')
+        global.alert('Your search must have only 1 (one) character');
       }
     }
     if (result !== null) {
       result
         .then((response) => response.json())
         .then((json) => {
-          data.recipes = json.meals === null ? [] : json.meals
-          if(data.recipes.length === 1) {
-            history.push('/foods/' + data.recipes[0].idMeal)
-          }
+          // data.recipes = json.meals === null ? [] : json.meals
+          console.log(json.meals);
+          setData({ ...data, recipes: (json.meals === null ? [] : json.meals) });
           if (json.meals === null) {
-            global.alert('Sorry, we haven\'t found any recipes for these filters.')
+            global.alert('Sorry, we haven\'t found any recipes for these filters.');
+          } else if (json.meals.length === 1) {
+            history.push(`/foods/${json.meals[0].idMeal}`);
           }
         });
     }
   }
   function getDrinksRecipes() {
-    let result = null
+    let result = null;
     if (search === 'ingredient') {
-      result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${key}`)
-
+      result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${key}`);
     } else if (search === 'name') {
-      result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${key}`)
-
+      result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${key}`);
     } else if (search === 'first-letter') {
       if (key.length === 1) {
-        result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${key}`)
-
+        result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${key}`);
       } else {
-        global.alert('Your search must have only 1 (one) character')
+        global.alert('Your search must have only 1 (one) character');
       }
     }
     if (result !== null) {
       result
         .then((response) => response.json())
         .then((json) => {
-          data.recipes = json.drinks === null ? [] : json.drinks
-          if(data.recipes.length === 1) {
-            history.push('/drinks/' + data.recipes[0].idDrink)
-          }
+          // data.recipes = json.drinks === null ? [] : json.drinks
+          setData({ ...data, recipes: json.drinks === null ? [] : json.drinks });
           if (json.drinks === null) {
-            global.alert('Sorry, we haven\'t found any recipes for these filters.')
+            global.alert('Sorry, we haven\'t found any recipes for these filters.');
+          } else if (json.drinks.length === 1) {
+            history.push(`/drinks/${json.drinks[0].idDrink}`);
           }
         });
     }
   }
-  const history = useHistory();
 
-  function handleClick(){
+  function handleClick() {
     if (history.location.pathname.includes('foods')) {
-      getFoodRecipes()
+      getFoodRecipes();
     } else if (history.location.pathname.includes('drinks')) {
-      getDrinksRecipes()
+      getDrinksRecipes();
     }
   }
 
   return (
     <div>
-      {/* {console.log(data.recipes)} */}
       <input
         onChange={ handleChange }
         name="key"
@@ -125,7 +120,13 @@ export default function SearchBar() {
           value="first-letter"
         />
       </label>
-      <button onClick={ handleClick } type="button" data-testid="exec-search-btn">Pesquisar</button>
+      <button
+        onClick={ handleClick }
+        type="button"
+        data-testid="exec-search-btn"
+      >
+        Pesquisar
+      </button>
     </div>
   );
 }

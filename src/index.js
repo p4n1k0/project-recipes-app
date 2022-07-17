@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Provider from './contex/myProvider';
-import { BrowserRouter } from 'react-router-dom';
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(

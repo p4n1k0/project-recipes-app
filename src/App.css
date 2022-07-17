@@ -10,6 +10,14 @@
   width: 100%;
 }
 
+.recipe-card {
+  border: #464646 solid 3px;
+  width: 300px;
+}
+.recipe-img {
+  width: 100%;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
