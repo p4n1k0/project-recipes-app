@@ -45,8 +45,8 @@ export default function SearchBar() {
           // console.log(json.meals);
           const typeKey = Object.keys(json)[0];
           const pageName = typeKey === 'meals' ? 'foods' : 'drinks';
-          console.log('key:', typeKey);
-          setData({ ...data, recipes: (json[typeKey] === null ? [] : json[typeKey]) });
+          // console.log('key:', json[typeKey] === null ? [] : json[typeKey]);
+          setData({ ...data, recipes: json[typeKey] === null ? [] : json[typeKey] });
           if (json[typeKey] === null) {
             global.alert('Sorry, we haven\'t found any recipes for these filters.');
           } else if (json[typeKey].length === 1) {

@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 import Provider from '../contex/myProvider';
+import { wait } from '@testing-library/user-event/dist/utils';
 
 describe('Testa a barra de pesquisa para /foods', () => {
   const renderFoodsPage = () => {
@@ -66,6 +67,7 @@ describe('Testa a barra de pesquisa para /foods', () => {
   });
   test('testa o alerta de null result para /foods', async () => {
     renderFoodsPage()
+
     jest.spyOn(global, 'alert').mockImplementation((message) => message);
 
     userEvent.click(screen.getByTestId('name-search-radio'))
