@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import MyContext from './myContext';
+// import MyContext from './myContext';
+import context from './myContext';
 
 function Provider({ children }) {
   // useEffect(() => {
@@ -17,10 +18,13 @@ function Provider({ children }) {
   });
 
   return (
-    <MyContext.Provider value={ { data, setData } }>
-      {/* <MyContext.Provider value={ data }> */}
+    <context.Provider value={ { data, setData } }>
       {children}
-    </MyContext.Provider>
+    </context.Provider>
+    // <MyContext.Provider value={ { data, setData } }>
+    //   {/* <MyContext.Provider value={ data }> */}
+    //   {children}
+    // </MyContext.Provider>
   );
 }
 

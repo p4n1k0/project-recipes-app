@@ -8,11 +8,11 @@ import Provider from './contex/myProvider';
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider>
+  <Provider>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root'),
 );
 

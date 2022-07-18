@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
 
-describe('Testa a tela de receitas', () => {
+describe('Testa o Header', () => {
   test('testa se o titulo esta correto', () => {
     renderWithRouter(<App />, '/foods');
     const title = screen.getByTestId('page-title')

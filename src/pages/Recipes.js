@@ -13,11 +13,14 @@ const MAX_RECIPES = 12;
 
 function Recipes() {
   const history = useHistory();
+  const test = useContext(context);
+  console.log(test, 'abbsdb');
   const { data } = useContext(context);
+  console.log(data, 'DATAghokgh');
 
   function getCards() {
     // console.log(data)
-    const recipes = data.recipes.slice(0, MAX_RECIPES);
+    const recipes = data !== undefined ? data.recipes.slice(0, MAX_RECIPES) : [];// data.recipes
     // console.log(recipes.length)
     if (history.location.pathname === '/foods') {
       const temp = recipes.map((r, index) => (

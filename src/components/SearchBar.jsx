@@ -14,67 +14,46 @@ export default function SearchBar() {
   const { data, setData } = useContext(context);
   const history = useHistory();
 
-  function getFoodRecipes() {
+  function getRecipes() {
     let result = null;
-    if (search === 'ingredient') {
-      result = fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${key}`);
-    } else if (search === 'name') {
-      result = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${key}`);
-    } else if (search === 'first-letter') {
-      if (key.length === 1) {
-        result = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${key}`);
-      } else {
-        global.alert('Your search must have only 1 (one) character');
-      }
+    let urls = null;
+    if (history.location.pathname.includes('foods')) {
+      urls = {
+        ingredient: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${key}`,
+        name: `https://www.themealdb.com/api/json/v1/1/search.php?s=${key}`,
+        'first-letter': `https://www.themealdb.com/api/json/v1/1/search.php?f=${key}`,
+      };
+    } else if (history.location.pathname.includes('drinks')) {
+      urls = {
+        ingredient: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${key}`,
+        name: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${key}`,
+        'first-letter': `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${key}`,
+      };
     }
+
+    result = fetch(urls[search]);
+    if (search === 'first-letter' && key.length !== 1) {
+      global.alert('Your search must have only 1 (one) character');
+      result = null;
+    }
+
     if (result !== null) {
       result
         .then((response) => response.json())
         .then((json) => {
           // data.recipes = json.meals === null ? [] : json.meals
-          console.log(json.meals);
-          setData({ ...data, recipes: (json.meals === null ? [] : json.meals) });
-          if (json.meals === null) {
+          // console.log(json.meals);
+          const typeKey = Object.keys(json)[0];
+          const pageName = typeKey === 'meals' ? 'foods' : 'drinks';
+          console.log('key:', typeKey);
+          setData({ ...data, recipes: (json[typeKey] === null ? [] : json[typeKey]) });
+          if (json[typeKey] === null) {
             global.alert('Sorry, we haven\'t found any recipes for these filters.');
-          } else if (json.meals.length === 1) {
-            history.push(`/foods/${json.meals[0].idMeal}`);
+          } else if (json[typeKey].length === 1) {
+            const subKey = Object.keys(json[typeKey][0])[0];
+            history.push(`/${pageName}/${json[typeKey][0][subKey]}`);
           }
         });
-    }
-  }
-  function getDrinksRecipes() {
-    let result = null;
-    if (search === 'ingredient') {
-      result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${key}`);
-    } else if (search === 'name') {
-      result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${key}`);
-    } else if (search === 'first-letter') {
-      if (key.length === 1) {
-        result = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${key}`);
-      } else {
-        global.alert('Your search must have only 1 (one) character');
-      }
-    }
-    if (result !== null) {
-      result
-        .then((response) => response.json())
-        .then((json) => {
-          // data.recipes = json.drinks === null ? [] : json.drinks
-          setData({ ...data, recipes: json.drinks === null ? [] : json.drinks });
-          if (json.drinks === null) {
-            global.alert('Sorry, we haven\'t found any recipes for these filters.');
-          } else if (json.drinks.length === 1) {
-            history.push(`/drinks/${json.drinks[0].idDrink}`);
-          }
-        });
-    }
-  }
-
-  function handleClick() {
-    if (history.location.pathname.includes('foods')) {
-      getFoodRecipes();
-    } else if (history.location.pathname.includes('drinks')) {
-      getDrinksRecipes();
     }
   }
 
@@ -121,7 +100,7 @@ export default function SearchBar() {
         />
       </label>
       <button
-        onClick={ handleClick }
+        onClick={ getRecipes }
         type="button"
         data-testid="exec-search-btn"
       >

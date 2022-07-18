@@ -33,7 +33,7 @@ describe('Testa a barra de pesquisa para /foods', () => {
     userEvent.click(sBtn)
     await waitFor(() => {
       expect(history.location.pathname).toBe('/foods/53013')
-    })
+    }, { timeout: 1000, interval: 100 })
   });
   test('testa os radio buttons de pesquisa', async () => {
     renderFoodsPage()
@@ -64,8 +64,21 @@ describe('Testa a barra de pesquisa para /foods', () => {
     await waitFor(() => expect(alert).toHaveBeenCalledWith("Your search must have only 1 (one) character"))
 
   });
-  test('testa o alerta de null result', async () => {
+  test('testa o alerta de null result para /foods', async () => {
     renderFoodsPage()
+    jest.spyOn(global, 'alert').mockImplementation((message) => message);
+
+    userEvent.click(screen.getByTestId('name-search-radio'))
+    userEvent.type(screen.getByTestId('search-input'), 'hgdxfgs')
+    userEvent.click(screen.getByTestId('exec-search-btn'))
+
+    await waitFor(() => expect(alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'))
+  });
+  test('testa o alerta de null result para /drinks', async () => {
+    renderWithRouter(<Provider><App /></Provider>, '/drinks');
+    const sBtn = screen.getByTestId('search-top-btn')
+    userEvent.click(sBtn)
+
     jest.spyOn(global, 'alert').mockImplementation((message) => message);
 
     userEvent.click(screen.getByTestId('name-search-radio'))
@@ -103,7 +116,7 @@ describe('Testa a barra de pesquisa para /drinks', () => {
     userEvent.type(sInput, 'boston sour')
     const sBtn = screen.getByTestId('exec-search-btn')
     userEvent.click(sBtn)
-    // await waitFor(() => expect(history.location.pathname).toBe('/drinks/11129'), {timeout: 1000, interval: 200})
+    await waitFor(() => expect(history.location.pathname).toBe('/drinks/11129'), {timeout: 1000, interval: 200})
     
   });
   test('testa os radio buttons de pesquisa', async () => {
@@ -135,14 +148,14 @@ describe('Testa a barra de pesquisa para /drinks', () => {
     await waitFor(() => expect(alert).toHaveBeenCalledWith("Your search must have only 1 (one) character"))
 
   });
-  test('testa o alerta de null result', async () => {
-    renderFoodsPage()
-    jest.spyOn(global, 'alert').mockImplementation((message) => message);
+  // test('testa o alerta de null result', async () => {
+  //   renderFoodsPage()
+  //   jest.spyOn(global, 'alert').mockImplementation((message) => message);
 
-    userEvent.click(screen.getByTestId('name-search-radio'))
-    userEvent.type(screen.getByTestId('search-input'), 'hgdxfgs')
-    userEvent.click(screen.getByTestId('exec-search-btn'))
+  //   userEvent.click(screen.getByTestId('name-search-radio'))
+  //   userEvent.type(screen.getByTestId('search-input'), 'hgdxfgs')
+  //   userEvent.click(screen.getByTestId('exec-search-btn'))
 
-    await waitFor(() => expect(alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'))
-  });
+  //   await waitFor(() => expect(alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'))
+  // });
 });
