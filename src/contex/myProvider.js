@@ -15,6 +15,7 @@ function Provider({ children }) {
   const [data, setData] = useState({
     btnDisabled: true,
     recipes: [],
+    updateRecipes: 0,
   });
 
   return (

@@ -20,6 +20,10 @@
   width: 300px;
 }
 
+.category-container {
+  display: flex;
+}
+
 .recipe-img {
   width: 100%;
 }
