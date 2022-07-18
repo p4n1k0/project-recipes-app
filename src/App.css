@@ -1,3 +1,8 @@
+.footer {
+  bottom: 0;
+  position: fixed;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -7,6 +12,15 @@
   font-family: sans-serif;
   height: 100vh;
   justify-content: center;
+  width: 100%;
+}
+
+.recipe-card {
+  border: #464646 solid 3px;
+  width: 300px;
+}
+
+.recipe-img {
   width: 100%;
 }
 
