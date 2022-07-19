@@ -18,7 +18,7 @@ function Recipes() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(null);
   const history = useHistory();
-
+  // if (data.updateRecipes !== null) {
   useEffect(() => {
     const temp = (history.location.pathname.includes('foods'))
       ? fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
@@ -26,7 +26,7 @@ function Recipes() {
     temp
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         const typeKey = Object.keys(json)[0];
         setCategories(json[typeKey] === null ? [] : json[typeKey]);
       });
@@ -50,11 +50,12 @@ function Recipes() {
         });
     }
   }, [data.updateRecipes]);
+  // }
 
   function getCards() {
     const recipes = data !== undefined ? data.recipes.slice(0, MAX_RECIPES) : [];// data.recipes
     const typeKey = history.location.pathname === '/foods' ? 'Meal' : 'Drink';
-    console.log(recipes, history.location.pathname, typeKey);
+    // console.log(recipes, history.location.pathname, typeKey);
     const temp = recipes.map((r, index) => (
       <Link key={ index } to={ `${history.location.pathname}/${r[`id${typeKey}`]}` }>
         <div
@@ -112,7 +113,7 @@ function Recipes() {
         key={ index }
         data-testid={ `${r.strCategory}-category-filter` }
       >
-        {console.log(`${r.strCategory}-category-filter`)}
+        {/* {console.log(`${r.strCategory}-category-filter`)} */}
         <button className="category-btn" onClick={ getButton } type="button">
           {r.strCategory}
         </button>

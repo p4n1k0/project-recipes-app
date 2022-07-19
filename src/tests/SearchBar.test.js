@@ -3,12 +3,10 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
-import Provider from '../contex/myProvider';
-import { wait } from '@testing-library/user-event/dist/utils';
 
 describe('Testa a barra de pesquisa para /foods', () => {
   const renderFoodsPage = () => {
-    renderWithRouter(<Provider><App /></Provider>, '/foods');
+    renderWithRouter(<App />, '/foods');
     const sBtn = screen.getByTestId('search-top-btn')
     userEvent.click(sBtn)
   }
@@ -23,7 +21,7 @@ describe('Testa a barra de pesquisa para /foods', () => {
     expect() //Recipe Cards
   });
   test('testa o botão de pesquisa para um unico item', async () => {
-    const { history } = renderWithRouter(<Provider><App /></Provider>, '/foods');
+    const { history } = renderWithRouter(<App />, '/foods');
     userEvent.click(screen.getByTestId('search-top-btn'))
 
     const iBtn = screen.getByTestId('name-search-radio')
@@ -77,7 +75,7 @@ describe('Testa a barra de pesquisa para /foods', () => {
     await waitFor(() => expect(alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'))
   });
   test('testa o alerta de null result para /drinks', async () => {
-    renderWithRouter(<Provider><App /></Provider>, '/drinks');
+    renderWithRouter(<App />, '/drinks');
     const sBtn = screen.getByTestId('search-top-btn')
     userEvent.click(sBtn)
 
@@ -94,7 +92,7 @@ describe('Testa a barra de pesquisa para /foods', () => {
 
 describe('Testa a barra de pesquisa para /drinks', () => {
   const renderFoodsPage = () => {
-    renderWithRouter(<Provider><App /></Provider>, '/drinks');
+    renderWithRouter(<App />, '/drinks');
     const sBtn = screen.getByTestId('search-top-btn')
     userEvent.click(sBtn)
   }
@@ -109,7 +107,7 @@ describe('Testa a barra de pesquisa para /drinks', () => {
     expect() //Recipe Cards
   });
   test('testa o botão de pesquisa para um unico item', async () => {
-    const { history } = renderWithRouter(<Provider><App /></Provider>, '/drinks');
+    const { history } = renderWithRouter(<App />, '/drinks');
     userEvent.click(screen.getByTestId('search-top-btn'))
 
     const iBtn = screen.getByTestId('name-search-radio')
