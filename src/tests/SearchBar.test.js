@@ -3,6 +3,9 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
+import fetch from '../../cypress/mocks/fetch';
+
+jest.spyOn(global, 'alert').mockImplementation(fetch);
 
 describe('Testa a barra de pesquisa para /foods', () => {
   const renderFoodsPage = () => {
@@ -52,7 +55,6 @@ describe('Testa a barra de pesquisa para /foods', () => {
   });
   test('testa o alerta de first-letter-search-radio', async () => {
     renderFoodsPage()
-    jest.spyOn(global, 'alert').mockImplementation((message) => message);
 
     const sInput = screen.getByTestId('search-input')
     const sBtn = screen.getByTestId('exec-search-btn')
@@ -116,7 +118,7 @@ describe('Testa a barra de pesquisa para /drinks', () => {
     userEvent.type(sInput, 'boston sour')
     const sBtn = screen.getByTestId('exec-search-btn')
     userEvent.click(sBtn)
-    await waitFor(() => expect(history.location.pathname).toBe('/drinks/11129'), {timeout: 1000, interval: 200})
+    await waitFor(() => expect(history.location.pathname).toBe('/drinks/11129'), {timeout: 2000, interval: 200})
     
   });
   test('testa os radio buttons de pesquisa', async () => {
