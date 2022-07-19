@@ -16,6 +16,7 @@ function Provider({ children }) {
     btnDisabled: true,
     recipes: [],
     updateRecipes: 0,
+    updateRecipeDetails: 0,
   });
 
   return (
