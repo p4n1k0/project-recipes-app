@@ -85,6 +85,7 @@ function RecipeDetails({ match: { params: { id } } }) {
         key={ index }
         to={ `${pathname}/${r[`id${typeKey}`]}` }
       >
+
         <div
           className="recipe-card"
           data-testid={ `${index}-recomendation-card` }
@@ -95,11 +96,13 @@ function RecipeDetails({ match: { params: { id } } }) {
             data-testid={ `${index}-card-img` }
             src={ r[`${`str${typeKey}`}Thumb`] }
           />
-          <h4 data-testid={ `${index}-card-name` }>
-            {' '}
-            {r[`str${typeKey}`]}
-            {' '}
-          </h4>
+          <div data-testid={ `${index}-recomendation-title` }>
+            <h4 data-testid={ `${index}-card-name ` }>
+              {' '}
+              {r[`str${typeKey}`]}
+              {' '}
+            </h4>
+          </div>
         </div>
       </Link>
     ));
@@ -132,7 +135,9 @@ function RecipeDetails({ match: { params: { id } } }) {
             src={ `https://www.youtube.com/embed/${video}` }
           />}
 
-          {renderCards()}
+          <div className="carro-ceu">
+            {renderCards()}
+          </div>
 
         </div>
       );
