@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState(null);
   const history = useHistory()
+  const [copy, setCopy] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
 
   function setArray(r, array, key) {
     Object.entries(r).map((entrie) => {
-      if (entrie[0].includes(key) && entrie[1] !== null) {
+      if (entrie[0].includes(key) && entrie[1] !== null && entrie[1] !== '') {
         array.push(entrie[1]);
       }
       return 0;
@@ -45,6 +51,90 @@ function RecipeInProgress({ match: { params: { id } } }) {
         });
       });
   }
+
+  function copyUrl() {
+    const url = window.location.href;
+    clipboardCopy(url);
+    setCopy('Link copied!');
+  }
+
+  function getIsFavorite() {
+    let favoriteRecipes = localStorage.getItem('favoriteRecipes');
+
+    if (favoriteRecipes) {
+      favoriteRecipes = JSON.parse(favoriteRecipes);
+    } else {
+      favoriteRecipes = [];
+      localStorage.setItem('favoriteRecipes', '[]');
+    }
+
+    const test = favoriteRecipes.filter((r) => r.id === id).length === 0;
+    setIsFavorite(!test);
+  }
+
+  function favorite() {
+    let favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    if (favoriteRecipes) {
+      favoriteRecipes = JSON.parse(favoriteRecipes);
+    } else {
+      favoriteRecipes = [];
+      localStorage.setItem('favoriteRecipes', '[]');
+    }
+    const test = favoriteRecipes.filter((r) => r.id === id).length === 0;
+    const { img, type, nationality, title, category, drinkCategory } = recipe;
+    if (test) {
+      favoriteRecipes.push({
+        id,
+        type,
+        nationality: type === 'food' ? nationality : '',
+        category: type === 'food' ? category : drinkCategory,
+        alcoholicOrNot: type === 'food' ? '' : category,
+        name: title,
+        image: img,
+      });
+    } else {
+      favoriteRecipes = favoriteRecipes.filter((r) => (r.id !== id));
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    setIsFavorite(test);
+  }
+
+  function endRecipe() {
+    const url = (history.location.pathname.includes('foods')) ? '/foods/' : '/drinks/';
+    history.push(`${url + id}/in-progress`);
+  }
+  function renderEndRecipe() {
+    // let doneRecipes = localStorage.getItem('doneRecipes');
+    // if (doneRecipes) {
+    //   doneRecipes = JSON.parse(doneRecipes);
+    // } else {
+    //   doneRecipes = [];
+    //   localStorage.setItem('doneRecipes', '[]');
+    // }
+    // const test = doneRecipes.filter((r) => r.id === id).length === 0;
+    // let inProgressRecipes = localStorage.getItem('doneRecipes');
+    // if (inProgressRecipes) {
+    //   inProgressRecipes = JSON.parse(inProgressRecipes);
+    // } else {
+    //   inProgressRecipes = [];
+    //   localStorage.setItem('inProgressRecipes', '[]');
+    // }
+    // const inProgressTest = doneRecipes.filter((r) => r.id === id).length === 0;
+    // const text = inProgressTest ? 'Continue Recipe' : 'Start Recipe';
+    const test = true
+    if (test) {
+      return (
+        <button
+          className="finish-recipe-btn"
+          name="Finish Recipe"
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ endRecipe }
+        >
+          Finish Recipe
+        </button>);
+    }
+  }
   
   function renderDetails() {
     if (recipe !== null) {
@@ -53,6 +143,30 @@ function RecipeInProgress({ match: { params: { id } } }) {
       return (
         <div>
           <img data-testid="recipe-photo" className="details-img" src={img} />
+          <h3 data-testid="recipe-title" >{title}</h3>
+          <h3 data-testid="recipe-category" >{category}</h3>
+          <button type="button" onClick={ copyUrl } data-testid="share-btn">
+            {copy === '' ? <img alt="share icon" src={ shareIcon } /> : <h4>{copy}</h4>}
+          </button>
+          <button
+            type="button"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            onClick={ favorite }
+            data-testid="favorite-btn"
+          >
+            <img alt="fav icon" src={ isFavorite ? blackHeartIcon : whiteHeartIcon } />
+          </button>
+          {console.log(ingredients)}
+          {ingredients.map((i, index) => {
+            return (
+            <label key={index} htmlFor={i}>
+              {i + '-' + measures[index]}
+              <input data-testid={`${index}-ingredient-step`} type="checkbox" value={i} />
+
+            </label>
+            )
+          })}
+          <h4 data-testid="instructions" >{instructions}</h4>
         </div>
       );
     }
@@ -60,11 +174,13 @@ function RecipeInProgress({ match: { params: { id } } }) {
 
   useEffect(() => {
     getDetails();
+    getIsFavorite();
   }, []);
 
   return (
     <main>
       {renderDetails()}
+      {renderEndRecipe()}
     </main>
   );
 }

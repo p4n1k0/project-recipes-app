@@ -30,7 +30,7 @@ function RecipeDetails({ match: { params: { id } } }) {
   }
   function setArray(r, array, key) {
     Object.entries(r).map((entrie) => {
-      if (entrie[0].includes(key) && entrie[1] !== null) {
+      if (entrie[0].includes(key) && entrie[1] !== null && entrie[1] !== '') {
         array.push(entrie[1]);
       }
       return 0;
@@ -164,7 +164,7 @@ function RecipeDetails({ match: { params: { id } } }) {
             src={ img }
           />
           <button type="button" onClick={ copyUrl } data-testid="share-btn">
-            {copy === '' ? <img alt="share icon" src={ shareIcon } /> : <h3>{copy}</h3>}
+            {copy === '' ? <img alt="share icon" src={ shareIcon } /> : <h4>{copy}</h4>}
           </button>
           <button
             type="button"
