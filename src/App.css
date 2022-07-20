@@ -40,12 +40,12 @@ iframe {
 }
 
 .recipe-card {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   border: white solid 3px;
-  overflow: hidden;
   border-radius: 21px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   width: 300px;
 }
 
