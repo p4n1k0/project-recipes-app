@@ -157,15 +157,16 @@ function RecipeInProgress({ match: { params: { id } } }) {
             <img alt="fav icon" src={ isFavorite ? blackHeartIcon : whiteHeartIcon } />
           </button>
           {console.log(ingredients)}
-          {ingredients.map((i, index) => {
-            return (
-            <label key={index} htmlFor={i}>
-              {i + '-' + measures[index]}
-              <input data-testid={`${index}-ingredient-step`} type="checkbox" value={i} />
-
-            </label>
-            )
+          <ul>
+            {ingredients.map((i, index) => {
+              return (
+              <li data-testid={`${index}-ingredient-step`} key={index} htmlFor={i}>
+                <input id={i} type="checkbox" value={i} />
+                {i + '-' + measures[index]}
+              </li>
+              )
           })}
+          </ul>
           <h4 data-testid="instructions" >{instructions}</h4>
         </div>
       );
