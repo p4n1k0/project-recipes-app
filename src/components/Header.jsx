@@ -40,7 +40,11 @@ function Header() {
   return (
     <header>
       <div>
-        <button type="button" onClick={ () => redirect('/profile') }>
+        <button
+          data-testid="btn-profile"
+          type="button"
+          onClick={ () => redirect('/profile') }
+        >
           <img data-testid="profile-top-btn" src={ profileIcon } alt="profile" />
         </button>
         <h2 data-testid="page-title">{title}</h2>
