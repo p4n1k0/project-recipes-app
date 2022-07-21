@@ -7,7 +7,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState(null);
-  const history = useHistory()
+  const history = useHistory();
   const [copy, setCopy] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -121,7 +121,7 @@ function RecipeInProgress({ match: { params: { id } } }) {
     // }
     // const inProgressTest = doneRecipes.filter((r) => r.id === id).length === 0;
     // const text = inProgressTest ? 'Continue Recipe' : 'Start Recipe';
-    const test = true
+    const test = true;
     if (test) {
       return (
         <button
@@ -135,16 +135,21 @@ function RecipeInProgress({ match: { params: { id } } }) {
         </button>);
     }
   }
-  
+
   function renderDetails() {
     if (recipe !== null) {
       const { img,
         title, category, ingredients, measures, instructions, video } = recipe;
       return (
         <div>
-          <img data-testid="recipe-photo" className="details-img" src={img} />
-          <h3 data-testid="recipe-title" >{title}</h3>
-          <h3 data-testid="recipe-category" >{category}</h3>
+          <img
+            alt="recipe-phot"
+            data-testid="recipe-photo"
+            className="details-img"
+            src={ img }
+          />
+          <h3 data-testid="recipe-title">{title}</h3>
+          <h3 data-testid="recipe-category">{category}</h3>
           <button type="button" onClick={ copyUrl } data-testid="share-btn">
             {copy === '' ? <img alt="share icon" src={ shareIcon } /> : <h4>{copy}</h4>}
           </button>
@@ -158,16 +163,20 @@ function RecipeInProgress({ match: { params: { id } } }) {
           </button>
           {console.log(ingredients)}
           <ul>
-            {ingredients.map((i, index) => {
-              return (
-              <li data-testid={`${index}-ingredient-step`} key={index} htmlFor={i}>
-                <input id={i} type="checkbox" value={i} />
-                {i + '-' + measures[index]}
-              </li>
-              )
-          })}
+            {
+              ingredients.map((i, index) => (
+                <li
+                  data-testid={ `${index}-ingredient-step` }
+                  key={ index }
+                  htmlFor={ i }
+                >
+                  <input id={ i } type="checkbox" value={ i } />
+                  {i + '-' + measures[index]}
+                </li>
+              ))
+            }
           </ul>
-          <h4 data-testid="instructions" >{instructions}</h4>
+          <h4 data-testid="instructions">{instructions}</h4>
         </div>
       );
     }
