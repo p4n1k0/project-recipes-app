@@ -6,8 +6,17 @@ import Header from '../components/Header';
 function Profile() {
   const history = useHistory();
 
-  const userKey = localStorage.getItem('user');
-  const userEmail = JSON.parse(userKey);
+  let userEmail = localStorage.getItem('user');
+  if (userEmail) {
+    userEmail = JSON.parse(userEmail).email;
+  } else {
+    userEmail = 'test@test.com';
+    localStorage.setItem('user', '{"email": "test@test.com"}');
+  }
+
+  // const userKey = localStorage.getItem('user');
+  // const userEmail = JSON.parse(userKey);
+  console.log(userEmail);
 
   function onLogoutClick() {
     history.push('/');
@@ -17,7 +26,7 @@ function Profile() {
     <main className="main-profile">
       <Header />
       <div className="profile-buttons">
-        <h2 data-testid="profile-email">{userEmail.email}</h2>
+        <h2 data-testid="profile-email">{userEmail}</h2>
         <div>
           <button
             data-testid="profile-done-btn"
