@@ -4,7 +4,7 @@ import renderWithRouter from './renderWithRouter';
 import App from '../App';
 
 describe('Testa a tela RecipeDetails', () => {
-  it('Testa a página de detalhes de comidas', async () => {
+  test('Testa a página de detalhes de comidas', async () => {
     const { history } = renderWithRouter(<App />);
     history.push('/foods');
 
@@ -22,7 +22,7 @@ describe('Testa a tela RecipeDetails', () => {
     expect(startRecipeBtn).toBeInTheDocument();
   });
 
-  it('Testa a página de detalhes de bebidas', async () => {
+  test('Testa a página de detalhes de bebidas', async () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
 
