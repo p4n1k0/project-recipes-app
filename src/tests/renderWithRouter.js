@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import Provider from '../contex/myProvider';
 
 const renderWithRouter = (component, route = '/') => {
   const history = createMemoryHistory({ initialEntries: [route] });
@@ -9,7 +10,9 @@ const renderWithRouter = (component, route = '/') => {
   return {
     ...render(
       <Router history={ history }>
-        {component}
+        <Provider>
+          {component}
+        </Provider>
       </Router>
     ),
     history

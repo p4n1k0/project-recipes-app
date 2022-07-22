@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import mealIcon from '../images/mealIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
+import context from '../contex/myContext';
 
 function Footer() {
   const history = useHistory();
+  const { data, setData } = useContext(context);
 
   function redirect(url) {
     history.push(url);
+    setData({ ...data, updateRecipes: !data.updateRecipes });
   }
 
   return (

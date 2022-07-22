@@ -1,3 +1,27 @@
+body {
+  background-color: #464646;
+  color: aliceblue;
+}
+
+a {
+  color: aliceblue;
+  text-decoration: none;
+}
+
+iframe {
+  width: 90%;
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+}
+
+.details-img {
+  border-radius: 20px;
+  width: 90%;
+}
+
 .footer {
   bottom: 0;
   position: fixed;
@@ -16,8 +40,17 @@
 }
 
 .recipe-card {
-  border: #464646 solid 3px;
+  align-items: center;
+  border: white solid 3px;
+  border-radius: 21px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   width: 300px;
+}
+
+.category-container {
+  display: flex;
 }
 
 .recipe-img {
@@ -27,6 +60,14 @@
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
+}
+
+.carro-ceu {
+  display: flex;
+  flex-direction: row;
+  height: 400px;
+  margin-right: 10px;
+  overflow-x: auto;
 }
 
 /*

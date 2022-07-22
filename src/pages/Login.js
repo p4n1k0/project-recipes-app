@@ -20,6 +20,13 @@ function LoginPage() {
     localStorage.setItem('user', JSON.stringify({ email: login.email }));
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
+
+    // const doneRecipes = localStorage.getItem('doneRecipes')
+    // localStorage.setItem('doneRecipes', doneRecipes ? doneRecipes : '{"list": []}');
+
+    // const inProgressRecipes = localStorage.getItem('inProgressRecipes')
+    // localStorage.setItem('inProgressRecipes', inProgressRecipes ? inProgressRecipes : '{"list": []}');
+
     history.push('/foods');
   }
 

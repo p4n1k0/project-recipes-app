@@ -23,7 +23,7 @@ export default function SearchBar() {
         name: `https://www.themealdb.com/api/json/v1/1/search.php?s=${key}`,
         'first-letter': `https://www.themealdb.com/api/json/v1/1/search.php?f=${key}`,
       };
-    } else if (history.location.pathname.includes('drinks')) {
+    } if (history.location.pathname.includes('drinks')) {
       urls = {
         ingredient: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${key}`,
         name: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${key}`,
